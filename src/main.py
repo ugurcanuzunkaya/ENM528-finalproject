@@ -14,13 +14,25 @@ def main():
         "--scenario",
         type=int,
         default=0,
-        choices=[0, 1, 2, 3],
-        help="Scenario ID (0-3)",
+        help="Scenario ID (0: Base, 1: Dynamic, 2: Open Loop, 3: LRP)",
+    )
+    parser.add_argument(
+        "--data-mode",
+        type=str,
+        default="uniform",
+        choices=["uniform", "clustered", "solomon"],
+        help="Data generation mode",
+    )
+    parser.add_argument(
+        "--data-file",
+        type=str,
+        default=None,
+        help="Path to data file (e.g., c101.txt) for 'solomon' mode",
     )
     parser.add_argument(
         "--locator",
         type=str,
-        default="p-median",
+        default="fixed",
         choices=["fixed", "p-median", "centroid"],
         help="Locator Strategy",
     )
@@ -58,13 +70,33 @@ def main():
     # Construct Config
     config = {
         "scenario": args.scenario,
+        "data_mode": args.data_mode,
+        "data_file": args.data_file,
         "locator": args.locator,
         "candidates": args.candidates,
         "fleet_mode": args.fleet,
         "loop_type": args.loop_type,
         "seed": args.seed,
-        "run_name": f"scen_{args.scenario}_{args.locator}_{args.fleet}",
     }
+
+    # Construct Run Name
+    run_name = f"scen_{args.scenario}_{args.locator}_{args.fleet}_{args.data_mode}"
+    if args.data_mode == "solomon" and args.data_file:
+        import os
+
+        fname = os.path.splitext(os.path.basename(args.data_file))[0]
+        run_name += f"_{fname}"
+
+    elif args.data_mode == "clustered":
+        run_name += "_clustered"
+
+    elif args.data_mode == "uniform":
+        run_name += "_uniform"
+
+    else:
+        raise ValueError(f"Unknown data mode: {args.data_mode}")
+
+    config["run_name"] = run_name
 
     # Add timestamp to run_name to avoid overwrites
     import time

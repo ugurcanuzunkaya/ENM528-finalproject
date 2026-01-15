@@ -1,0 +1,43 @@
+==================================================
+SCENARIO REPORT: scen_2_centroid_mix_1_uniform_uniform_1768452659
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 2
+  Locator: centroid
+  Fleet Mode: mix_1
+  Loop Type: closed
+  Data Mode: uniform
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Solver Status: 11 (Gap: 4.08%)
+  Runtime: 26721.09 s
+  Status: Solved
+  Solve Time: 26757.07 s
+  Total Objective: 342.9604
+  Truck Distance: 73.7450
+  Total Secondary Cost: 269.2154
+
+ROUTING DETAILS:
+
+  [Selected Depot] at Location: (49.70, 54.49)
+    - Vehicle 1 [Diesel Car]:
+      Assigned Customers (8): [5, 14, 3, 7, 16, 9, 4, 19]
+      Traveled Distance: 64.60
+      Load: 8/40 (20.0%)
+    - Vehicle 2 [E-Car]:
+      Assigned Customers (2): [0, 13]
+      Traveled Distance: 66.68
+      Load: 2/30 (6.7%)
+    - Vehicle 3 [E-Bike]:
+      Assigned Customers (5): [18, 17, 1, 12, 8]
+      Traveled Distance: 69.51
+      Load: 5/10 (50.0%)
+    - Vehicle 4 [E-Bike]:
+      Assigned Customers (5): [11, 6, 10, 2, 15]
+      Traveled Distance: 68.43
+      Load: 5/10 (50.0%)
+
+  Average Fleet Capacity Utilization: 31.67%

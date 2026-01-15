@@ -53,6 +53,12 @@ uv run python src/main.py --scenario 1 --locator centroid --fleet homog
 
 # Senaryo 2: Açık Çevrim Rota (Open Loop), Karışık Filo 2
 uv run python src/main.py --scenario 2 --fleet mix_2 --loop-type open --locator p-median
+
+# Solomon Veri Seti Kullanımı (c101.txt)
+uv run python src/main.py --scenario 0 --data-mode solomon --data-file c101.txt
+
+# Kümelenmiş Veri (Clustered Data)
+uv run python src/main.py --scenario 3 --data-mode clustered
 ```
 
 ### 2. Tüm Deneyleri Çalıştırma (`run_all.py`)
@@ -82,8 +88,16 @@ Mevcut durumda 4 adet sabit depo ve homojen bir filo (E-Car) kullanıldığı va
 Tüm müşterilere hizmet verecek **tek bir optimal depo yerinin** belirlendiği senaryodur.
 
 - **Centroid (Kütle Merkezi)**: Müşterilerin coğrafi dağılımının ağırlık merkezi depo olarak seçilir.
-- **P-Median**: Müşteri noktalarından biri depo olarak seçilir (toplam mesafeyi minimize edecek şekilde).
-Bu senaryo, birden fazla sabit depo yerine stratejik konumlandırılmış tek bir merkezin verimliliğini test eder.
+- **P-Median**: Müşteri noktalarından biri depo olarak seçilir (toplam## Veri Üretimi
+Proje, müşteri ve depo yerleşimlerini simüle etmek için sentetik veri üretimi veya harici dosya yükleme yeteneğine sahiptir.
+
+- **Modlar**:
+  - `uniform`: Rastgele düzgün dağılım (Varsayılan).
+  - `clustered`: Gerçekçi mahalle veya iş bölgelerini simüle etmek için kümelenmiş müşteri dağılımı.
+  - `solomon`: Standart Solomon VRPTW benchmark dosyalarını (örn. `c101.txt`) yükler. [Solomon Link](https://www.sintef.no/projectweb/top/vrptw/100-customers/)
+- **Talep (Demand)**: Kapasite mantığı tam olarak uygulanmıştır. Solomon dosyalarında dosyadan okunur (ancak şu an sabit 1 birim varsayımı da kullanılabilir).
+
+## Scenarios
 
 ### Senaryo 2: Parametrik VRP (Parametric Single Depot)
 
@@ -152,6 +166,17 @@ Aşağıdaki tablo, tüm senaryoların çalışma sonuçlarını özetlemektedir
 
 4. **Genel Kazanan:**
     **Senaryo 3 - Mix 2 (202.79 birim)**, başlangıç durumu olan **S0 (536.71 birim)**'a göre **%62'lik bir iyileşme** sağlamaktadır. Bu sonuç, modern şehir lojistiğinde hiyerarşik dağıtım ağlarının ve mikromobilite entegrasyonunun önemini kanıtlamaktadır.
+
+### Akademik Gerekçelendirmeler ve Notlar
+
+#### Açık Çevrim Mantığı (Senaryo 2)
+
+Açık Çevrim (Open Loop) senaryosunda, araçlar depoya geri dönmemektedir. Bu model, bağımsız kuryelerin (örn. UberEats, Amazon Flex) son teslimat noktasında mesailerini bitirdikleri veya kişisel işlerine geçtikleri **Kitlesel Kaynaklı Dağıtım (Gig Economy)** paradigmasına dayanmaktadır. Bu varsayım, dönüş maliyetini ortadan kaldırarak operasyonel maliyetleri düşürür ve bu çalışan sınıfı için son kilometre dağıtım literatüründe yaygın ve geçerli bir yaklaşımdır.
+
+#### Optimallik ve Ölçeklenebilirlik
+
+- **MIP Gap (Optimality Gap)**: Gurobi çözücüsü, çözümün kalitesini göstermek için MIP Gap değerini raporlar. Sıfırdan büyük bir boşluk (örneğin zaman kısıtına takılma durumunda), mevcut çözümün en iyi olası çözümden en fazla %X uzaklıkta olduğunu ifade eder.
+- **Kesin Yöntem Sınırlılıkları**: Rotalama modülü, alt turları engellemek için Miller-Tucker-Zemlin (MTZ) kısıtlarını kullanır. Bu, kesin (exact) bir yöntem olmakla birlikte, hesaplama karmaşıklığı nedeniyle küçük ve orta ölçekli problemler (N < 50) için uygundur. Daha büyük örnekler için ALNS veya Genetik Algoritmalar gibi sezgisel yöntemlerin kullanılması önerilir.
 
 ## Çıktılar
 

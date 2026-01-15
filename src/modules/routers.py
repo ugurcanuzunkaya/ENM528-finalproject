@@ -241,6 +241,11 @@ class VRPRouter:
                 "max_dist": W.X,
                 "total_sec_cost": sum(sol_veh_dists.values()),
                 "open_loop": open_loop,
+                "solver_stats": {
+                    "status": m.Status,
+                    "mip_gap": m.MIPGap if m.IsMIP else 0.0,
+                    "runtime": m.Runtime,
+                },
             }
         else:
             return None
@@ -482,8 +487,8 @@ class TwoEchelonRouter:
             open_depots = [d for d in D_nodes if z[d].X > 0.5]
 
             # Truck Route
-            truck_route = []
-            curr = MAIN_IDX
+            # Truck Route Assignment
+
             # Simple extraction for now
             # Since it might visit multiple, just list them or try to trace
             # Careful with loops or time limit
@@ -532,5 +537,10 @@ class TwoEchelonRouter:
                 "sec_assignments": sec_assignments,
                 "max_dist": 0.0,
                 "total_sec_cost": total_sec_cost.getValue(),
+                "solver_stats": {
+                    "status": m.Status,
+                    "mip_gap": m.MIPGap if m.IsMIP else 0.0,
+                    "runtime": m.Runtime,
+                },
             }
         return None

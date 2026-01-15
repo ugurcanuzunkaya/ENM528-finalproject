@@ -1,0 +1,43 @@
+==================================================
+SCENARIO REPORT: scen_0_fixed_homog_uniform_uniform_1768452638
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 0
+  Locator: fixed
+  Fleet Mode: homog
+  Loop Type: closed
+  Data Mode: uniform
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Solver Status: 11 (Gap: 47.85%)
+  Runtime: 26725.78 s
+  Status: Solved
+  Solve Time: 27116.44 s
+  Total Objective: 536.7111
+  Truck Distance: 33.0143
+  Total Secondary Cost: 503.6968
+
+ROUTING DETAILS:
+
+  [Selected Depot] at Location: (24.64, 21.97)
+    - Vehicle 1 [E-Car]:
+      Assigned Customers (7): [14, 5, 15, 2, 11, 6, 10]
+      Traveled Distance: 118.36
+      Load: 7/30 (23.3%)
+    - Vehicle 2 [E-Car]:
+      Assigned Customers (4): [16, 12, 1, 17]
+      Traveled Distance: 117.12
+      Load: 4/30 (13.3%)
+    - Vehicle 3 [E-Car]:
+      Assigned Customers (1): [13]
+      Traveled Distance: 144.56
+      Load: 1/30 (3.3%)
+    - Vehicle 4 [E-Car]:
+      Assigned Customers (8): [9, 18, 8, 0, 4, 19, 7, 3]
+      Traveled Distance: 123.65
+      Load: 8/30 (26.7%)
+
+  Average Fleet Capacity Utilization: 16.67%

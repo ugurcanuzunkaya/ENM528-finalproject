@@ -1,0 +1,43 @@
+==================================================
+SCENARIO REPORT: scen_1_p-median_homog_uniform_uniform_1768452646
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 1
+  Locator: p-median
+  Fleet Mode: homog
+  Loop Type: closed
+  Data Mode: uniform
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Solver Status: 11 (Gap: 3.76%)
+  Runtime: 26725.36 s
+  Status: Solved
+  Solve Time: 26743.59 s
+  Total Objective: 364.1588
+  Truck Distance: 72.1584
+  Total Secondary Cost: 292.0004
+
+ROUTING DETAILS:
+
+  [Selected Depot] at Location: (45.21, 56.24)
+    - Vehicle 1 [E-Car]:
+      Assigned Customers (6): [9, 18, 17, 1, 12, 8]
+      Traveled Distance: 71.75
+      Load: 6/30 (20.0%)
+    - Vehicle 2 [E-Car]:
+      Assigned Customers (2): [0, 13]
+      Traveled Distance: 72.33
+      Load: 2/30 (6.7%)
+    - Vehicle 3 [E-Car]:
+      Assigned Customers (5): [4, 16, 3, 14, 10]
+      Traveled Distance: 75.13
+      Load: 5/30 (16.7%)
+    - Vehicle 4 [E-Car]:
+      Assigned Customers (7): [19, 15, 2, 6, 11, 5, 7]
+      Traveled Distance: 72.79
+      Load: 7/30 (23.3%)
+
+  Average Fleet Capacity Utilization: 16.67%

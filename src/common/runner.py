@@ -31,9 +31,12 @@ class ExperimentRunner:
         start_time = time.time()
 
         # 1. Setup Data
+        # 1. Setup Data
         seed = config.get("seed", 42)
-        print(f"Generating data with seed {seed}...")
-        data = generate_data(seed=seed)
+        data_mode = config.get("data_mode", "uniform")
+        data_file = config.get("data_file")
+        print(f"Generating data with seed {seed} (Mode: {data_mode})...")
+        data = generate_data(seed=seed, mode=data_mode, file_path=data_file)
 
         # 2. Setup Fleet
         fleet_mode = config.get("fleet_mode", "homog")
@@ -133,16 +136,38 @@ class ExperimentRunner:
                 f.write(f"  Locator: {config.get('locator')}\n")
                 f.write(f"  Fleet Mode: {config.get('fleet_mode')}\n")
                 f.write(f"  Loop Type: {config.get('loop_type')}\n")
+                f.write(f"  Data Mode: {config.get('data_mode')}\n")
                 f.write(f"  Candidates (S3): {config.get('candidates')}\n")
                 f.write(f"  Seed: {config.get('seed')}\n\n")
 
                 # 2. Key Metrics
                 f.write("SOLUTION METRICS:\n")
-                f.write(f"  Status: Solved\n")
+                if "solver_stats" in res:
+                    stats = res["solver_stats"]
+                    mip_gap = stats.get("mip_gap", 0.0)
+                    if isinstance(mip_gap, float):
+                        f.write(
+                            f"  Solver Status: {stats.get('status')} (Gap: {mip_gap * 100:.2f}%)\n"
+                        )
+                    else:
+                        f.write(
+                            f"  Solver Status: {stats.get('status')} (Gap: {mip_gap})\n"
+                        )
+                    f.write(f"  Runtime: {stats.get('runtime', 0):.2f} s\n")
+
+                f.write("  Status: Solved\n")
                 f.write(f"  Solve Time: {elapsed:.2f} s\n")
                 f.write(f"  Total Objective: {metrics['obj_val']:.4f}\n")
                 f.write(f"  Truck Distance: {metrics['truck_dist']:.4f}\n")
                 f.write(f"  Total Secondary Cost: {metrics['sec_cost']:.4f}\n\n")
+
+                # Utilization Calculation
+
+                # Helper to sum up capacity
+                # We need to access fleet to know capacity.
+                # In Scen 3, fleet is per depot. In others, it's global fleet list.
+
+                all_vehicle_loads = []
 
                 # 3. Depot & Routing Details
                 f.write("ROUTING DETAILS:\n")
@@ -172,7 +197,15 @@ class ExperimentRunner:
 
                             # Calculate distance if not present
                             dist = calc_route_dist(path, loc, loc, data.customers)
+
+                            # Load / Utilization (Assumes Demand=1)
+                            load = len(path) * 1
+                            cap = veh.capacity
+                            util = (load / cap) * 100 if cap > 0 else 0
+                            all_vehicle_loads.append(util)
+
                             f.write(f"      Traveled Distance: {dist:.2f}\n")
+                            f.write(f"      Load: {load}/{cap} ({util:.1f}%)\n")
                 else:
                     # Single Depot Logic
                     sel_loc = res["selected_depot_loc"]
@@ -203,6 +236,19 @@ class ExperimentRunner:
                         f.write(f"    - Vehicle {v_idx + 1} [{veh.name}]:\n")
                         f.write(f"      Assigned Customers ({len(path)}): {path}\n")
                         f.write(f"      Traveled Distance: {dist:.2f}\n")
+
+                        # Load / Utilization
+                        load = len(path) * 1
+                        cap = veh.capacity
+                        util = (load / cap) * 100 if cap > 0 else 0
+                        all_vehicle_loads.append(util)
+                        f.write(f"      Load: {load}/{cap} ({util:.1f}%)\n")
+
+                if all_vehicle_loads:
+                    avg_util = sum(all_vehicle_loads) / len(all_vehicle_loads)
+                    f.write(
+                        f"\n  Average Fleet Capacity Utilization: {avg_util:.2f}%\n"
+                    )
 
             print(f"Experiment '{run_name}' completed. Results saved in {output_dir}")
         else:

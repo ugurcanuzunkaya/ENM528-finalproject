@@ -1,0 +1,39 @@
+==================================================
+SCENARIO REPORT: scen_3_p-median_mix_1_uniform_uniform_1768452704
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 3
+  Locator: p-median
+  Fleet Mode: mix_1
+  Loop Type: closed
+  Data Mode: uniform
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Solver Status: 11 (Gap: 7.93%)
+  Runtime: 26684.82 s
+  Status: Solved
+  Solve Time: 27027.59 s
+  Total Objective: 226.8509
+  Truck Distance: 110.6785
+  Total Secondary Cost: 116.1724
+
+ROUTING DETAILS:
+
+  [Active Depot #0] at Location: (39.09, 39.17)
+    - Vehicle 1 [Diesel Car]:
+      Assigned Customers (1): [3]
+      Traveled Distance: 0.00
+      Load: 1/40 (2.5%)
+    - Vehicle 3 [E-Bike]:
+      Assigned Customers (10): [5, 8, 0, 13, 15, 2, 11, 6, 10, 14]
+      Traveled Distance: 142.08
+      Load: 10/10 (100.0%)
+    - Vehicle 4 [E-Bike]:
+      Assigned Customers (9): [16, 9, 17, 1, 12, 18, 4, 19, 7]
+      Traveled Distance: 90.26
+      Load: 9/10 (90.0%)
+
+  Average Fleet Capacity Utilization: 64.17%
