@@ -1,0 +1,34 @@
+==================================================
+SCENARIO REPORT: scen_0_fixed_homog_1768435911
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 0
+  Locator: fixed
+  Fleet Mode: homog
+  Loop Type: closed
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Status: Solved
+  Solve Time: 10341.24 s
+  Total Objective: 536.7111
+  Truck Distance: 33.0143
+  Total Secondary Cost: 503.6968
+
+ROUTING DETAILS:
+
+  [Selected Depot] at Location: (24.64, 21.97)
+    - Vehicle 1 [E-Car]:
+      Assigned Customers (7): [14, 5, 15, 2, 11, 6, 10]
+      Traveled Distance: 118.36
+    - Vehicle 2 [E-Car]:
+      Assigned Customers (4): [16, 12, 1, 17]
+      Traveled Distance: 117.12
+    - Vehicle 3 [E-Car]:
+      Assigned Customers (1): [13]
+      Traveled Distance: 144.56
+    - Vehicle 4 [E-Car]:
+      Assigned Customers (8): [9, 18, 8, 0, 4, 19, 7, 3]
+      Traveled Distance: 123.65

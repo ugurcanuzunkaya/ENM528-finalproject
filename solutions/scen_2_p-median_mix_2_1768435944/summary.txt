@@ -1,0 +1,40 @@
+==================================================
+SCENARIO REPORT: scen_2_p-median_mix_2_1768435944
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 2
+  Locator: p-median
+  Fleet Mode: mix_2
+  Loop Type: open
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Status: Solved
+  Solve Time: 117.75 s
+  Total Objective: 258.8636
+  Truck Distance: 72.1584
+  Total Secondary Cost: 186.7053
+
+ROUTING DETAILS:
+
+  [Selected Depot] at Location: (45.21, 56.24)
+    - Vehicle 1 [E-Scooter]:
+      Assigned Customers (5): [7, 5, 11, 6, 10]
+      Traveled Distance: 32.85
+    - Vehicle 2 [E-Scooter]:
+      Assigned Customers (4): [9, 16, 3, 14]
+      Traveled Distance: 32.61
+    - Vehicle 3 [E-Scooter]:
+      Assigned Customers (2): [4, 13]
+      Traveled Distance: 35.98
+    - Vehicle 4 [E-Scooter]:
+      Assigned Customers (3): [19, 15, 2]
+      Traveled Distance: 33.08
+    - Vehicle 5 [E-Bike]:
+      Assigned Customers (4): [18, 17, 12, 1]
+      Traveled Distance: 28.89
+    - Vehicle 6 [E-Bike]:
+      Assigned Customers (2): [8, 0]
+      Traveled Distance: 23.29

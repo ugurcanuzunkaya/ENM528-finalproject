@@ -1,0 +1,25 @@
+==================================================
+SCENARIO REPORT: scen_3_p-median_homog_1768435947
+==================================================
+
+CONFIGURATION:
+  Scenario ID: 3
+  Locator: p-median
+  Fleet Mode: homog
+  Loop Type: closed
+  Candidates (S3): 4
+  Seed: 42
+
+SOLUTION METRICS:
+  Status: Solved
+  Solve Time: 10308.05 s
+  Total Objective: 307.2728
+  Truck Distance: 110.6785
+  Total Secondary Cost: 196.5944
+
+ROUTING DETAILS:
+
+  [Active Depot #0] at Location: (39.09, 39.17)
+    - Vehicle 1 [E-Car]:
+      Assigned Customers (20): [3, 7, 16, 9, 4, 19, 18, 17, 1, 12, 8, 0, 13, 15, 2, 10, 6, 11, 5, 14]
+      Traveled Distance: 196.59
